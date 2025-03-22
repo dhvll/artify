@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react"
-import { IconsManifest, type IconType } from "react-icons"
 import { cn } from "@/lib/utils"
+import type { IconType } from "react-icons"
 
 interface ShapeToolProps {
   onClick: () => void
