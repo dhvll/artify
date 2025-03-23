@@ -1,6 +1,24 @@
 import { fabric } from "fabric"
-import { useCallback, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { useAutoResize } from "./use-auto-resize"
+import type { BuildEditorProps } from "../types"
+
+const buildEditor = ({ canvas }: BuildEditorProps) => {
+  return {
+    addCircle: () => {
+      const object = new fabric.Circle({
+        radius: 150,
+        height: 100,
+        width: 100,
+        fill: "#00000",
+        stroke: "#00000",
+      })
+
+      canvas.add(object)
+      canvas.setActiveObject(object)
+    },
+  }
+}
 
 export const useEditor = () => {
   const [canvas, setCanvas] = useState<fabric.Canvas | null>(null)
@@ -10,6 +28,13 @@ export const useEditor = () => {
     canvas,
     container,
   })
+
+  const editor = useMemo(() => {
+    if (canvas) {
+      return buildEditor({ canvas })
+    }
+    return undefined
+  }, [canvas])
 
   const init = useCallback(
     ({
@@ -62,5 +87,5 @@ export const useEditor = () => {
     []
   )
 
-  return { init }
+  return { init, editor }
 }

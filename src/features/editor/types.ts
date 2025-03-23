@@ -1,3 +1,5 @@
+import { fabric } from "fabric"
+
 export type ActiveTool =
   | "select"
   | "shapes"
@@ -14,3 +16,7 @@ export type ActiveTool =
   | "ai"
   | "remove-bg"
   | "templates"
+
+export type BuildEditorProps = {
+  canvas: fabric.Canvas
+}
