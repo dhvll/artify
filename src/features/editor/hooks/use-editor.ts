@@ -1,6 +1,5 @@
 import { fabric } from "fabric"
 import { useCallback, useMemo, useState } from "react"
-import { useAutoResize } from "./use-auto-resize"
 import {
   CIRCLE_OPTIONS,
   DIAMOND_OPTIONS,
@@ -13,8 +12,9 @@ import {
   type Editor,
   type EditorHookProps,
 } from "../types"
-import { useCanvasEvents } from "./use-canvas-events"
 import { isTextType } from "../utils"
+import { useAutoResize } from "./use-auto-resize"
+import { useCanvasEvents } from "./use-canvas-events"
 
 const buildEditor = ({
   canvas,
@@ -174,7 +174,16 @@ const buildEditor = ({
 
       return value
     },
-    strokeWidth,
+    getActiveStrokeWidth: () => {
+      const selectedObject = selectedObjects[0]
+
+      if (!selectedObject) {
+        return strokeWidth
+      }
+      const value = selectedObject.get("strokeWidth") || strokeWidth
+
+      return value
+    },
     selectedObjects,
   }
 }
