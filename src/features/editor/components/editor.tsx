@@ -12,7 +12,12 @@ import { ShapeSidebar } from "./shape-sidebar"
 import { FillColorSidebar } from "./fill-color-sidebar"
 
 export const Editor = () => {
+  const [isClient, setIsClient] = useState(false)
   const [activeTool, setActiveTool] = useState<ActiveTool>("select")
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const onChangeActiveTool = useCallback(
     (tool: ActiveTool) => {
@@ -38,6 +43,8 @@ export const Editor = () => {
   const containerRef = useRef(null)
 
   useEffect(() => {
+    if (!isClient) return
+
     const canvas = new fabric.Canvas(canvasRef.current, {
       controlsAboveOverlay: true,
       preserveObjectStacking: true,
@@ -50,7 +57,11 @@ export const Editor = () => {
     return () => {
       canvas.dispose()
     }
-  }, [init])
+  }, [isClient, init])
+
+  if (!isClient) {
+    return null
+  }
 
   return (
     <div className="h-full flex flex-col">
