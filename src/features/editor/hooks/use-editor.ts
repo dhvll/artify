@@ -87,8 +87,6 @@ const buildEditor = ({
         ...CIRCLE_OPTIONS,
         fill: fillColor,
         stroke: strokeColor,
-        strokeWidth: strokeWidth,
-        strokeDashArray: strokeDashArray,
       })
       addToCanvas(object)
     },
@@ -99,8 +97,6 @@ const buildEditor = ({
         ry: 50,
         fill: fillColor,
         stroke: strokeColor,
-        strokeWidth: strokeWidth,
-        strokeDashArray: strokeDashArray,
       })
       addToCanvas(object)
     },
@@ -109,8 +105,6 @@ const buildEditor = ({
         ...RECTANGLE_OPTIONS,
         fill: fillColor,
         stroke: strokeColor,
-        strokeWidth: strokeWidth,
-        strokeDashArray: strokeDashArray,
       })
 
       addToCanvas(object)
@@ -121,8 +115,6 @@ const buildEditor = ({
         ...TRIANGLE_OPTIONS,
         fill: fillColor,
         stroke: strokeColor,
-        strokeWidth: strokeWidth,
-        strokeDashArray: strokeDashArray,
       })
 
       addToCanvas(object)
@@ -141,8 +133,6 @@ const buildEditor = ({
           ...TRIANGLE_OPTIONS,
           fill: fillColor,
           stroke: strokeColor,
-          strokeWidth: strokeWidth,
-          strokeDashArray: strokeDashArray,
         }
       )
 
@@ -163,8 +153,6 @@ const buildEditor = ({
           ...DIAMOND_OPTIONS,
           fill: fillColor,
           stroke: strokeColor,
-          strokeWidth: strokeWidth,
-          strokeDashArray: strokeDashArray,
         }
       )
       addToCanvas(object)
