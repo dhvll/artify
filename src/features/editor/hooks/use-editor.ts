@@ -11,6 +11,7 @@ import {
   TRIANGLE_OPTIONS,
   type BuildEditorProps,
   type Editor,
+  type EditorHookProps,
 } from "../types"
 import { useCanvasEvents } from "./use-canvas-events"
 import { isTextType } from "../utils"
@@ -168,7 +169,7 @@ const buildEditor = ({
   }
 }
 
-export const useEditor = () => {
+export const useEditor = ({ clearSelectionCallback }: EditorHookProps) => {
   const [canvas, setCanvas] = useState<fabric.Canvas | null>(null)
   const [container, setContainer] = useState<HTMLDivElement | null>(null)
   const [selectedObjects, setSelectedObjects] = useState<fabric.Object[]>([])
@@ -185,6 +186,7 @@ export const useEditor = () => {
   useCanvasEvents({
     canvas,
     setSelectedObjects,
+    clearSelectionCallback,
   })
 
   const editor = useMemo(() => {

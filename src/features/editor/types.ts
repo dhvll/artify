@@ -40,6 +40,16 @@ export type ActiveTool =
   | "remove-bg"
   | "templates"
 
+export const selectionDependentTools = [
+  "fill",
+  "font",
+  "filter",
+  "opacity",
+  "remove-bg",
+  "stroke-color",
+  "stroke-width",
+]
+
 export const FILL_COLOR = "rgba(0,0,0,1)"
 export const STROKE_COLOR = "rgba(0,0,0,1)"
 export const STROKE_WIDTH = 2
@@ -97,6 +107,18 @@ export const TEXT_OPTIONS = {
   fill: FILL_COLOR,
   fontSize: FONT_SIZE,
   fontFamily: FONT_FAMILY,
+}
+
+export interface EditorHookProps {
+  defaultState?: string
+  defaultWidth?: number
+  defaultHeight?: number
+  clearSelectionCallback?: () => void
+  saveCallback?: (values: {
+    json: string
+    height: number
+    width: number
+  }) => void
 }
 
 export type BuildEditorProps = {
