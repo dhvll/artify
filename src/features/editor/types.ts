@@ -135,6 +135,8 @@ export type BuildEditorProps = {
 }
 
 export interface Editor {
+  // addText: (value: string, options?: ITextboxOptions) => void
+  addText: () => void
   getActiveOpacity: () => number
   changeOpacity: (value: number) => void
   bringForward: () => void

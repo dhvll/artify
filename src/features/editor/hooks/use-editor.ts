@@ -8,6 +8,7 @@ import {
   STROKE_COLOR,
   STROKE_DASH_ARRAY,
   STROKE_WIDTH,
+  TEXT_OPTIONS,
   TRIANGLE_OPTIONS,
   type BuildEditorProps,
   type Editor,
@@ -50,6 +51,13 @@ const buildEditor = ({
   }
 
   return {
+    addText: () => {
+      const object = new fabric.Textbox("Hello", {
+        ...TEXT_OPTIONS,
+        fill: fillColor,
+      })
+      addToCanvas(object)
+    },
     getActiveOpacity: () => {
       const selectedObject = selectedObjects[0]
 
