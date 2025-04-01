@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Arial&family=Arial+Black&family=Verdana&family=Helvetica&family=Tahoma&family=Trebuchet+MS&family=Times+New+Roman&family=Georgia&family=Garamond&family=Courier+New&family=Brush+Script+MT&family=Palatino&family=Bookman&family=Comic+Sans+MS&family=Impact&family=Lucida+Sans+Unicode&family=Geneva&family=Lucida+Console&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
