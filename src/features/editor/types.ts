@@ -2,6 +2,27 @@ import { fabric } from "fabric"
 import type { ITextboxOptions } from "fabric/fabric-impl"
 import * as material from "material-colors"
 
+export const fonts = [
+  "Arial",
+  "Arial Black",
+  "Verdana",
+  "Helvetica",
+  "Tahoma",
+  "Trebuchet MS",
+  "Times New Roman",
+  "Georgia",
+  "Garamond",
+  "Courier New",
+  "Brush Script MT",
+  "Palatino",
+  "Bookman",
+  "Comic Sans MS",
+  "Impact",
+  "Lucida Sans Unicode",
+  "Geneva",
+  "Lucida Console",
+]
+
 export const colors = [
   material.red["500"],
   material.pink["500"],
@@ -132,7 +153,9 @@ export type BuildEditorProps = {
   setStrokeColor: (value: string) => void
   setStrokeWidth: (value: number) => void
   strokeDashArray: number[]
+  fontFamily: string
   setStrokeDashArray: (value: number[]) => void
+  setFontFamily: (value: string) => void
 }
 
 export interface Editor {
@@ -154,7 +177,8 @@ export interface Editor {
   addDiamond: () => void
   canvas: fabric.Canvas
   selectedObjects: fabric.Object[]
-
+  getActiveFontFamily: () => string
+  changeFontFamily: (value: string) => void
   getActiveFillColor: () => string
   getActiveStrokeColor: () => string
   getActiveStrokeWidth: () => number
