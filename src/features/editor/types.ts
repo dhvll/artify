@@ -160,16 +160,24 @@ export type BuildEditorProps = {
 
 export interface Editor {
   addText: (value: string, options?: ITextboxOptions) => void
-  getActiveOpacity: () => number
   changeOpacity: (value: number) => void
+  getActiveOpacity: () => number
   bringForward: () => void
   sendBackwards: () => void
+  changeFontStyle: (value: string) => void
+  getActiveFontStyle: () => string
   changeFontWeight: (value: number) => void
+  getActiveFontWeight: () => number
   changeFillColor: (value: string) => void
+  getActiveFillColor: () => string
   changeStrokeColor: (value: string) => void
+  getActiveStrokeColor: () => string
   changeStrokeWidth: (value: number) => void
+  getActiveStrokeWidth: () => number
   changeStrokeDashArray: (value: number[]) => void
-
+  getActiveStrokeDashArray: () => number[]
+  changeFontFamily: (value: string) => void
+  getActiveFontFamily: () => string
   addCircle: () => void
   addSoftRectangle: () => void
   addRectangle: () => void
@@ -178,11 +186,4 @@ export interface Editor {
   addDiamond: () => void
   canvas: fabric.Canvas
   selectedObjects: fabric.Object[]
-  getActiveFontWeight: () => number
-  getActiveFontFamily: () => string
-  changeFontFamily: (value: string) => void
-  getActiveFillColor: () => string
-  getActiveStrokeColor: () => string
-  getActiveStrokeWidth: () => number
-  getActiveStrokeDashArray: () => number[]
 }

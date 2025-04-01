@@ -55,99 +55,6 @@ const buildEditor = ({
   }
 
   return {
-    addText: (value, options) => {
-      const object = new fabric.Textbox(value, {
-        ...TEXT_OPTIONS,
-        fill: fillColor,
-        ...options,
-      })
-      addToCanvas(object)
-    },
-    getActiveOpacity: () => {
-      const selectedObject = selectedObjects[0]
-
-      if (!selectedObject) {
-        return 1
-      }
-      const value = selectedObject.get("opacity") || 1
-      return value
-    },
-    changeOpacity: (value: number) => {
-      canvas.getActiveObjects().forEach((object) => {
-        object.set({ opacity: value })
-      })
-      canvas.renderAll()
-    },
-    bringForward: () => {
-      canvas.getActiveObjects().forEach((object) => {
-        canvas.bringForward(object)
-      })
-      canvas.renderAll()
-      const workspace = getWorkspace()
-      workspace?.sendToBack()
-    },
-    sendBackwards: () => {
-      canvas.getActiveObjects().forEach((object) => {
-        canvas.sendBackwards(object)
-      })
-
-      canvas.renderAll()
-      const workspace = getWorkspace()
-      workspace?.sendToBack()
-    },
-    changeFontWeight: (value: number) => {
-      canvas.getActiveObjects().forEach((object) => {
-        if (isTextType(object.type)) {
-          // @ts-ignore
-          // Faulty TS library, fontWeight exists.
-          object.set({ fontWeight: value })
-        }
-      })
-      canvas.renderAll()
-    },
-    changeFontFamily: (value: string) => {
-      setFontFamily(value)
-      canvas.getActiveObjects().forEach((object) => {
-        if (isTextType(object.type)) {
-          // @ts-ignore
-          // Faulty TS library, fontFamily exists.
-          object.set({ fontFamily: value })
-        }
-      })
-      canvas.renderAll()
-    },
-    changeFillColor: (value: string) => {
-      setFillColor(value)
-      canvas.getActiveObjects().forEach((object) => {
-        object.set({ fill: value })
-      })
-      canvas.renderAll()
-    },
-    changeStrokeColor: (value: string) => {
-      setStrokeColor(value)
-      canvas.getActiveObjects().forEach((object) => {
-        if (isTextType(object.type)) {
-          object.set({ fill: value })
-          return
-        }
-        object.set({ stroke: value })
-      })
-      canvas.renderAll()
-    },
-    changeStrokeWidth: (value: number) => {
-      setStrokeWidth(value)
-      canvas.getActiveObjects().forEach((object) => {
-        object.set({ strokeWidth: value })
-      })
-      canvas.renderAll()
-    },
-    changeStrokeDashArray: (value: number[]) => {
-      setStrokeDashArray(value)
-      canvas.getActiveObjects().forEach((object) => {
-        object.set({ strokeDashArray: value })
-      })
-      canvas.renderAll()
-    },
     addCircle: () => {
       const object = new fabric.Circle({
         ...CIRCLE_OPTIONS,
@@ -224,18 +131,76 @@ const buildEditor = ({
       addToCanvas(object)
     },
     canvas,
-    getActiveFontFamily: () => {
+    addText: (value, options) => {
+      const object = new fabric.Textbox(value, {
+        ...TEXT_OPTIONS,
+        fill: fillColor,
+        ...options,
+      })
+      addToCanvas(object)
+    },
+    getActiveOpacity: () => {
       const selectedObject = selectedObjects[0]
 
       if (!selectedObject) {
-        return fontFamily
+        return 1
       }
-
-      // @ts-ignore
-      // Faulty TS library, fontFamily exists.
-      const value = selectedObject.get("fontFamily") || fontFamily
-
+      const value = selectedObject.get("opacity") || 1
       return value
+    },
+    changeOpacity: (value: number) => {
+      canvas.getActiveObjects().forEach((object) => {
+        object.set({ opacity: value })
+      })
+      canvas.renderAll()
+    },
+    bringForward: () => {
+      canvas.getActiveObjects().forEach((object) => {
+        canvas.bringForward(object)
+      })
+      canvas.renderAll()
+      const workspace = getWorkspace()
+      workspace?.sendToBack()
+    },
+    sendBackwards: () => {
+      canvas.getActiveObjects().forEach((object) => {
+        canvas.sendBackwards(object)
+      })
+
+      canvas.renderAll()
+      const workspace = getWorkspace()
+      workspace?.sendToBack()
+    },
+    changeFontStyle: (value: string) => {
+      canvas.getActiveObjects().forEach((object) => {
+        if (isTextType(object.type)) {
+          // @ts-ignore
+          // Faulty TS library, fontStyle exists.
+          object.set({ fontStyle: value })
+        }
+      })
+      canvas.renderAll()
+    },
+    getActiveFontStyle: () => {
+      const selectedObject = selectedObjects[0]
+
+      if (!selectedObject) {
+        return "normal"
+      }
+      // @ts-ignore
+      // Faulty TS library, fontStyle exists.
+      const value = selectedObject.get("fontStyle") || "normal"
+      return value
+    },
+    changeFontWeight: (value: number) => {
+      canvas.getActiveObjects().forEach((object) => {
+        if (isTextType(object.type)) {
+          // @ts-ignore
+          // Faulty TS library, fontWeight exists.
+          object.set({ fontWeight: value })
+        }
+      })
+      canvas.renderAll()
     },
     getActiveFontWeight: () => {
       const selectedObject = selectedObjects[0]
@@ -250,6 +215,37 @@ const buildEditor = ({
 
       return value
     },
+    changeFontFamily: (value: string) => {
+      setFontFamily(value)
+      canvas.getActiveObjects().forEach((object) => {
+        if (isTextType(object.type)) {
+          // @ts-ignore
+          // Faulty TS library, fontFamily exists.
+          object.set({ fontFamily: value })
+        }
+      })
+      canvas.renderAll()
+    },
+    getActiveFontFamily: () => {
+      const selectedObject = selectedObjects[0]
+
+      if (!selectedObject) {
+        return fontFamily
+      }
+
+      // @ts-ignore
+      // Faulty TS library, fontFamily exists.
+      const value = selectedObject.get("fontFamily") || fontFamily
+
+      return value
+    },
+    changeFillColor: (value: string) => {
+      setFillColor(value)
+      canvas.getActiveObjects().forEach((object) => {
+        object.set({ fill: value })
+      })
+      canvas.renderAll()
+    },
     getActiveFillColor: () => {
       const selectedObject = selectedObjects[0]
 
@@ -259,6 +255,17 @@ const buildEditor = ({
       const value = selectedObject.get("fill") || fillColor
 
       return value as string
+    },
+    changeStrokeColor: (value: string) => {
+      setStrokeColor(value)
+      canvas.getActiveObjects().forEach((object) => {
+        if (isTextType(object.type)) {
+          object.set({ fill: value })
+          return
+        }
+        object.set({ stroke: value })
+      })
+      canvas.renderAll()
     },
     getActiveStrokeColor: () => {
       const selectedObject = selectedObjects[0]
@@ -270,6 +277,13 @@ const buildEditor = ({
 
       return value
     },
+    changeStrokeWidth: (value: number) => {
+      setStrokeWidth(value)
+      canvas.getActiveObjects().forEach((object) => {
+        object.set({ strokeWidth: value })
+      })
+      canvas.renderAll()
+    },
     getActiveStrokeWidth: () => {
       const selectedObject = selectedObjects[0]
 
@@ -280,6 +294,14 @@ const buildEditor = ({
 
       return value
     },
+    changeStrokeDashArray: (value: number[]) => {
+      setStrokeDashArray(value)
+      canvas.getActiveObjects().forEach((object) => {
+        object.set({ strokeDashArray: value })
+      })
+      canvas.renderAll()
+    },
+
     getActiveStrokeDashArray: () => {
       const selectedObject = selectedObjects[0]
 
