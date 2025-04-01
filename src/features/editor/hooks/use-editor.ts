@@ -56,6 +56,11 @@ const buildEditor = ({
   }
 
   return {
+    delete: () => {
+      canvas.getActiveObjects().forEach((object) => canvas.remove(object))
+      canvas.discardActiveObject()
+      canvas.renderAll()
+    },
     addCircle: () => {
       const object = new fabric.Circle({
         ...CIRCLE_OPTIONS,
