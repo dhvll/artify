@@ -1,6 +1,6 @@
 "use client"
 
-import { FONT_WEIGHT, type ActiveTool, type Editor } from "../types"
+import { FONT_SIZE, FONT_WEIGHT, type ActiveTool, type Editor } from "../types"
 import { Hint } from "@/components/hint"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -17,6 +17,7 @@ import { RxTransparencyGrid } from "react-icons/rx"
 import { isTextType } from "../utils"
 import { useState } from "react"
 import { FaBold, FaItalic, FaStrikethrough, FaUnderline } from "react-icons/fa"
+import { FontSizeInput } from "./font-size-input"
 
 interface ToolbarProps {
   editor: Editor | undefined
@@ -36,6 +37,7 @@ export const Toolbar = ({
   const initialFontLinethrough = editor?.getActiveFontLinethrough()
   const initialFontUnderline = editor?.getActiveFontUnderline()
   const initialTextAlign = editor?.getActiveTextAlign()
+  const initialFontSize = editor?.getActiveFontSize() || FONT_SIZE
 
   const [properties, setProperties] = useState({
     fillColor: initialFillColor,
@@ -46,11 +48,24 @@ export const Toolbar = ({
     fontUnderline: initialFontUnderline,
     fontLinethrough: initialFontLinethrough,
     textAlign: initialTextAlign,
+    fontSize: initialFontSize,
   })
   const selectedObject = editor?.selectedObjects[0]
   const selectedObjectType = editor?.selectedObjects[0]?.type
 
   const isText = isTextType(selectedObjectType)
+
+  const onChangeFontSize = (value: number) => {
+    if (!selectedObject) {
+      return
+    }
+
+    editor?.changeFontSize(value)
+    setProperties((current) => ({
+      ...current,
+      fontSize: value,
+    }))
+  }
 
   const onChangeTextAlign = (value: string) => {
     if (!selectedObject) {
@@ -282,6 +297,14 @@ export const Toolbar = ({
               <AlignRight className="size-4" />
             </Button>
           </Hint>
+        </div>
+      )}
+      {isText && (
+        <div className="flex items-center h-full justify-center">
+          <FontSizeInput
+            value={properties.fontSize}
+            onChange={onChangeFontSize}
+          />
         </div>
       )}
       <div className="flex items-center h-full justify-center">
