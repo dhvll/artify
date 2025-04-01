@@ -164,6 +164,10 @@ export interface Editor {
   getActiveOpacity: () => number
   bringForward: () => void
   sendBackwards: () => void
+  changeFontUnderline: (value: boolean) => void
+  getActiveFontUnderline: () => boolean
+  changeFontLinethrough: (value: boolean) => void
+  getActiveFontLinethrough: () => boolean
   changeFontStyle: (value: string) => void
   getActiveFontStyle: () => string
   changeFontWeight: (value: number) => void
