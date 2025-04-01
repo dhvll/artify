@@ -164,6 +164,11 @@ export interface Editor {
   getActiveOpacity: () => number
   bringForward: () => void
   sendBackwards: () => void
+  // delete: () => void
+  // changeFontSize: (value: number) => void
+  // getActiveFontSize: () => number
+  changeTextAlign: (value: string) => void
+  getActiveTextAlign: () => string
   changeFontUnderline: (value: boolean) => void
   getActiveFontUnderline: () => boolean
   changeFontLinethrough: (value: boolean) => void

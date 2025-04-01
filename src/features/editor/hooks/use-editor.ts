@@ -171,6 +171,27 @@ const buildEditor = ({
       const workspace = getWorkspace()
       workspace?.sendToBack()
     },
+    changeTextAlign: (value: string) => {
+      canvas.getActiveObjects().forEach((object) => {
+        if (isTextType(object.type)) {
+          // @ts-ignore
+          // Faulty TS library, textAlign exists.
+          object.set({ textAlign: value })
+        }
+      })
+      canvas.renderAll()
+    },
+    getActiveTextAlign: () => {
+      const selectedObject = selectedObjects[0]
+
+      if (!selectedObject) {
+        return "left"
+      }
+      // @ts-ignore
+      // Faulty TS library, textAlign exists.
+      const value = selectedObject.get("textAlign") || "left"
+      return value
+    },
     changeFontUnderline: (value: boolean) => {
       canvas.getActiveObjects().forEach((object) => {
         if (isTextType(object.type)) {
