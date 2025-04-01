@@ -164,6 +164,7 @@ export interface Editor {
   changeOpacity: (value: number) => void
   bringForward: () => void
   sendBackwards: () => void
+  changeFontWeight: (value: number) => void
   changeFillColor: (value: string) => void
   changeStrokeColor: (value: string) => void
   changeStrokeWidth: (value: number) => void
@@ -177,6 +178,7 @@ export interface Editor {
   addDiamond: () => void
   canvas: fabric.Canvas
   selectedObjects: fabric.Object[]
+  getActiveFontWeight: () => number
   getActiveFontFamily: () => string
   changeFontFamily: (value: string) => void
   getActiveFillColor: () => string

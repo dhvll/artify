@@ -5,6 +5,7 @@ import {
   DIAMOND_OPTIONS,
   FILL_COLOR,
   FONT_FAMILY,
+  FONT_WEIGHT,
   RECTANGLE_OPTIONS,
   STROKE_COLOR,
   STROKE_DASH_ARRAY,
@@ -93,6 +94,16 @@ const buildEditor = ({
       canvas.renderAll()
       const workspace = getWorkspace()
       workspace?.sendToBack()
+    },
+    changeFontWeight: (value: number) => {
+      canvas.getActiveObjects().forEach((object) => {
+        if (isTextType(object.type)) {
+          // @ts-ignore
+          // Faulty TS library, fontWeight exists.
+          object.set({ fontWeight: value })
+        }
+      })
+      canvas.renderAll()
     },
     changeFontFamily: (value: string) => {
       setFontFamily(value)
@@ -223,6 +234,19 @@ const buildEditor = ({
       // @ts-ignore
       // Faulty TS library, fontFamily exists.
       const value = selectedObject.get("fontFamily") || fontFamily
+
+      return value
+    },
+    getActiveFontWeight: () => {
+      const selectedObject = selectedObjects[0]
+
+      if (!selectedObject) {
+        return FONT_WEIGHT
+      }
+
+      // @ts-ignore
+      // Faulty TS library, fontFamily exists.
+      const value = selectedObject.get("fontWeight") || FONT_WEIGHT
 
       return value
     },
