@@ -7,6 +7,7 @@ import { useGetImages } from "@/features/images/api/use-get-images"
 import { AlertTriangle, Loader } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { UploadButton } from "@/lib/unploadthing"
 
 interface ImageSidebarProps {
   editor: Editor | undefined
@@ -35,6 +36,24 @@ export const ImageSidebar = ({
         title="Image"
         description="Add images to your canvas"
       />
+      <div className="p-4 border-b">
+        <UploadButton
+          appearance={{
+            button: "w-full text-sm font-medium",
+            allowedContent: "hidden",
+          }}
+          content={{
+            button: "Upload Image",
+          }}
+          endpoint="imageUploader"
+          onClientUploadComplete={(res) => {
+            editor?.addImage(res[0].url)
+          }}
+          onUploadError={(error: Error) => {
+            console.error("Upload failed:", error)
+          }}
+        />
+      </div>
       {isLoading && (
         <div className="flex items-center justify-center flex-1">
           <Loader className="size-4 text-muted-foreground animate-spin" />
@@ -61,6 +80,7 @@ export const ImageSidebar = ({
                   >
                     <Image
                       fill
+                      sizes="(max-width: 768px) 100px, (max-width: 1200px) 50px, 33px"
                       src={image.urls.small}
                       alt={image.alt_description || "Image"}
                       className="object-cover"
