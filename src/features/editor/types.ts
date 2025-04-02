@@ -62,6 +62,32 @@ export type ActiveTool =
   | "remove-bg"
   | "templates"
 
+export const filters = [
+  "none",
+  "polaroid",
+  "sepia",
+  "kodachrome",
+  "contrast",
+  "brightness",
+  "greyscale",
+  "brownie",
+  "vintage",
+  "technicolor",
+  "pixelate",
+  "invert",
+  "blur",
+  "sharpen",
+  "emboss",
+  "removecolor",
+  "blacknwhite",
+  "vibrance",
+  "blendcolor",
+  "huerotate",
+  "resize",
+  "saturation",
+  "gamma",
+]
+
 export const selectionDependentTools = [
   "fill",
   "font",
@@ -159,6 +185,7 @@ export type BuildEditorProps = {
 }
 
 export interface Editor {
+  changeImageFilter: (value: string) => void
   addText: (value: string, options?: ITextboxOptions) => void
   changeOpacity: (value: number) => void
   getActiveOpacity: () => number
