@@ -165,6 +165,7 @@ export interface Editor {
   bringForward: () => void
   sendBackwards: () => void
   delete: () => void
+  addImage: (value: string) => void
   changeFontSize: (value: number) => void
   getActiveFontSize: () => number
   changeTextAlign: (value: string) => void
