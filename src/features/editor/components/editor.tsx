@@ -19,6 +19,7 @@ import { ImageSidebar } from "./image-sidebar"
 import { FilterSidebar } from "./filter-sidebar"
 import { AiSidebar } from "./ai-sidebar"
 import { RemoveBgSidebar } from "./remove-bg-sidebar"
+import { DrawSidebar } from "./draw-sidebar"
 
 export const Editor = () => {
   const [isClient, setIsClient] = useState(false)
@@ -27,24 +28,6 @@ export const Editor = () => {
   useEffect(() => {
     setIsClient(true)
   }, [])
-
-  const onChangeActiveTool = useCallback(
-    (tool: ActiveTool) => {
-      if (tool === activeTool) {
-        return setActiveTool("select")
-      }
-
-      if (tool === "draw") {
-        // enable
-      }
-
-      if (tool === "draw") {
-        // disable
-      }
-      setActiveTool(tool)
-    },
-    [activeTool]
-  )
 
   const onClearSelection = useCallback(() => {
     if (selectionDependentTools.includes(activeTool)) {
@@ -55,6 +38,24 @@ export const Editor = () => {
   const { init, editor } = useEditor({
     clearSelectionCallback: onClearSelection,
   })
+
+  const onChangeActiveTool = useCallback(
+    (tool: ActiveTool) => {
+      if (tool === "draw") {
+        editor?.enableDrawingMode()
+      }
+
+      if (activeTool === "draw") {
+        editor?.disableDrawingMode()
+      }
+      if (tool === activeTool) {
+        return setActiveTool("select")
+      }
+
+      setActiveTool(tool)
+    },
+    [activeTool, editor]
+  )
 
   const canvasRef = useRef(null)
   const containerRef = useRef(null)
@@ -139,6 +140,11 @@ export const Editor = () => {
           onChangeActiveTool={onChangeActiveTool}
         />
         <RemoveBgSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+        <DrawSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
