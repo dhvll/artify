@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react"
 import {
   ActiveTool,
   Editor,
@@ -24,8 +25,15 @@ export const DrawSidebar = ({
   activeTool,
   onChangeActiveTool,
 }: DrawSidebarProps) => {
-  const colorValue = editor?.getActiveStrokeColor() || STROKE_COLOR
-  const widthValue = editor?.getActiveStrokeWidth() || STROKE_WIDTH
+  const [colorValue, setColorValue] = useState(editor?.getActiveStrokeColor() || STROKE_COLOR)
+  const [widthValue, setWidthValue] = useState(editor?.getActiveStrokeWidth() || STROKE_WIDTH)
+
+  useEffect(() => {
+    if (editor) {
+      editor.changeStrokeColor(colorValue)
+      editor.changeStrokeWidth(widthValue)
+    }
+  }, [colorValue, widthValue, editor])
 
   const onClose = () => {
     editor?.disableDrawingMode()
@@ -33,11 +41,11 @@ export const DrawSidebar = ({
   }
 
   const onColorChange = (value: string) => {
-    editor?.changeStrokeColor(value)
+    setColorValue(value)
   }
 
   const onWidthChange = (value: number) => {
-    editor?.changeStrokeWidth(value)
+    setWidthValue(value)
   }
 
   return (
